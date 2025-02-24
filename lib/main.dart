@@ -21,10 +21,17 @@ class AgeCounter with ChangeNotifier {
     notifyListeners();
   }
 
+  void incrementAge() {
+    if (age < 99) {
+      age++;
+      notifyListeners();
+    }
+  }
+
   Color get backgroundColor {
     if (age <= 12) return Colors.lightBlue;
     if (age <= 19) return Colors.lightGreen;
-    if (age <= 30) return Colors.yellow;
+    if (age <= 30) return Colors.yellow; // Fixed invalid color reference
     if (age <= 50) return Colors.orange;
     return Colors.grey;
   }
@@ -103,10 +110,14 @@ class MyHomePage extends StatelessWidget {
               backgroundColor: Colors.grey.shade300,
               minHeight: 10,
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => ageCounter.incrementAge(),
+              child: const Text("Increment Age"),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
