@@ -28,6 +28,13 @@ class AgeCounter with ChangeNotifier {
     }
   }
 
+  void decrementAge() {
+    if (age > 0) {
+      age--;
+      notifyListeners();
+    }
+  }
+
   Color get backgroundColor {
     if (age <= 12) return Colors.lightBlue;
     if (age <= 19) return Colors.lightGreen;
@@ -111,9 +118,19 @@ class MyHomePage extends StatelessWidget {
               minHeight: 10,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => ageCounter.incrementAge(),
-              child: const Text("Increment Age"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => ageCounter.decrementAge(),
+                  child: const Text("Decrease Age"),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () => ageCounter.incrementAge(),
+                  child: const Text("Increase Age"),
+                ),
+              ],
             ),
           ],
         ),
